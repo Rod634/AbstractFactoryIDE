@@ -2,6 +2,7 @@ package main;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 
 import javax.swing.JFrame;
@@ -40,7 +41,7 @@ public class UiInicial extends JFrame{
 		
 		JLabel lblNewLabel = new JLabel("Rs Code");
 		lblNewLabel.setBackground(Color.WHITE);
-		lblNewLabel.setBounds(159, 23, 104, 35);
+		lblNewLabel.setBounds(159, 23, 159, 35);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 29));
 		lblNewLabel.setForeground(UIManager.getColor("Label.disabledShadow"));
 		panel.add(lblNewLabel);
@@ -65,12 +66,9 @@ public class UiInicial extends JFrame{
 		this.abrirArquivo.addActionListener(e ->
 		{
 		    JFileChooser escolha = new JFileChooser();
-		    
 		    int valid = escolha.showOpenDialog(null);
-		    
 		    if (valid == JFileChooser.APPROVE_OPTION) {
 		    	try {
-		    		
 		    		String extensao = escolha.getSelectedFile().toString();
 		    		extensao = extensao.substring(extensao.lastIndexOf(".") + 1, extensao.length());
 		    		String path = escolha.getSelectedFile().getAbsolutePath();
@@ -85,19 +83,19 @@ public class UiInicial extends JFrame{
 		    		
 					OpenSyntaxHigh(extensao, path);
 					
-				} catch (IOException | InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
+				} catch (IOException | InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e1) {
 					e1.printStackTrace();
 				}
 		    }
 		});
 	}
 
-	private void OpenSyntaxHigh(String extensao, String path) throws MalformedURLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
+	private void OpenSyntaxHigh(String extensao, String path) throws MalformedURLException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
 		
 		int retorno = this.logica.LoadPlugins(path, extensao);
 		
 		if(retorno == -1) {
-			JOptionPane.showMessageDialog(null, "Não existe plugin que suporte este arquivo");
+			JOptionPane.showMessageDialog(null, "Nï¿½o existe plugin que suporte este arquivo");
 		}
 	}
 }
